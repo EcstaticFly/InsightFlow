@@ -59,10 +59,10 @@ const App = () => {
   };
 
   return (
-    <div style={themeStyles} className="min-h-screen">
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div style={themeStyles} className="min-h-screen flex flex-col">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex-1">
         <Navbar isDark={isDark} toggleDarkMode={toggleDarkMode} />
-
+  
         <div style={cardStyles} className="rounded-lg p-3 sm:p-6">
           <QueryInput
             loading={loading}
@@ -74,7 +74,7 @@ const App = () => {
             disableSuggestions={disableSuggestions}
             setDisableSuggestions={setDisableSuggestions}
           />
-
+  
           {loading && (
             <div className="flex justify-center items-center py-6 sm:py-8">
               <Loader size={24} className="animate-spin text-blue-400 mr-2" />
@@ -86,7 +86,7 @@ const App = () => {
               </p>
             </div>
           )}
-
+  
           {error && (
             <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 mb-4 rounded">
               <p className="flex items-center">
@@ -94,20 +94,21 @@ const App = () => {
               </p>
             </div>
           )}
-
+  
           {result && <ChartDisplay isDark={isDark} cardStyles={cardStyles} />}
         </div>
-
+  
         <QueryHistory
           cardStyles={cardStyles}
           handleHistoryClick={handleHistoryClick}
           isDark={isDark}
         />
-
-        <Footer isDark={isDark} />
       </div>
+  
+      <Footer isDark={isDark} />
     </div>
   );
+  
 };
 
 export default App;
