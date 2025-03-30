@@ -24,29 +24,13 @@ const QueryInput = ({
 
   const inputRef = useRef(null);
 
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
   const [isPreview, setIsPreview] = useState(false);
 
   const [isFetchingSuggestions, setIsFetchingSuggestions] = useState(false);
 
   const previousInputRef = useRef("");
-  const handleQuerySubmit = async () => {
-    setShowSuggestions(false);
-    dispatch(submitQuery(typedInput));
-    try {
-      const response = await mockQueryResponse(typedInput);
-      dispatch(setResult(response));
-    } catch (err) {
-      dispatch(setError("Failed to process query."));
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-
-    setDisableSuggestions(false);
-    setTypedInput(value);
-    setInput(value);
-  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -88,11 +72,30 @@ const QueryInput = ({
     }, 300);
     return () => clearTimeout(timer);
   }, [typedInput, disableSuggestions, dispatch]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const handleQuerySubmit = async () => {
+    setShowSuggestions(false);
+    dispatch(submitQuery(typedInput));
+    try {
+      const response = await mockQueryResponse(typedInput);
+      dispatch(setResult(response));
+    } catch (err) {
+      dispatch(setError("Failed to process query."));
+    }
+  };
+
   const handleInputFocus = () => {
     if (suggestions.length > 0) {
       setShowSuggestions(true);
     }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+
+    setDisableSuggestions(false);
+    setTypedInput(value);
+    setInput(value);
   };
 
   const handleSuggestionMouseEnter = (suggestion) => {
@@ -120,17 +123,20 @@ const QueryInput = ({
     dispatch(setSuggestions([]));
     setShowSuggestions(false);
   };
+
   const buttonStyles = {
     backgroundColor: "#4299e1",
     color: "#ffffff",
     hoverBackgroundColor: "#3182ce",
     transition: "background-color 0.3s",
   };
+
   const inputStyles = {
     backgroundColor: isDark ? "#4a5568" : "#ffffff",
     color: isDark ? "#f7fafc" : "#1a202c",
     borderColor: isDark ? "#718096" : "#e2e8f0",
   };
+
   const suggestionStyles = {
     backgroundColor: isDark ? "#2d3748" : "#ffffff",
     hoverBackgroundColor: isDark ? "#4a5568" : "#f3f4f6",

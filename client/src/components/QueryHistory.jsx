@@ -26,12 +26,8 @@ const getPageNumbers = (currentPage, totalPages) => {
   return rangeWithDots;
 };
 
-const QueryHistory = ({
-  handleHistoryClick,
-  cardStyles,
-  isDark,
-}) => {
-  const {queryHistory} = useSelector((state) => state.query);
+const QueryHistory = ({ handleHistoryClick, cardStyles, isDark }) => {
+  const { queryHistory } = useSelector((state) => state.query);
   const [sortOrder, setSortOrder] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
